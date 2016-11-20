@@ -1,3 +1,11 @@
+require 'yaml'
+LANGUAGE = 'en'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
+
 def prompt message
   Kernel.puts "=> #{message}"
 end
@@ -13,21 +21,30 @@ def operator_to_message op
     'Multiplying'
   when '4'
     'Dividing'
- end
-end
-
-def valid_number? number
-   number.to_i != 0
+   end
 end
 
 
-prompt "Hello! Welcome to the calculator program. What's your name?"
+def valid_number?(input)
+  integer?(input) || float?(input)
+end
+
+def integer?(input)
+  input.to_i.to_s == input
+end
+
+def float?(input)
+  input.to_f.to_s == input
+end
+
+
+prompt messages('welcome',LANGUAGE)
 name = ''
 
 loop do
   name = Kernel.gets.chomp
   if name.empty?
-    prompt "Please enter a name"
+  prompt messages('valid_name',LANGUAGE)
   else
     break
   end
@@ -36,23 +53,23 @@ end
 loop do
   first_number = ""
   loop do
-    prompt "Insert a number"
+    prompt messages('number',LANGUAGE)
     first_number = Kernel.gets.chomp
     if valid_number? first_number
       break
     else
-      prompt "Doesn't look like a valid number"
+      prompt messages('valid_number',LANGUAGE)
     end
   end
 
   second_number = ""
   loop do
-    prompt "Insert another number."
+    prompt messages('number',LANGUAGE)
     second_number = Kernel.gets.chomp
     if valid_number? second_number
       break
     else 
-      prompt "Doesn't look like a valid number"
+      prompt messages('valid_number',LANGUAGE)
     end
   end
 
@@ -86,11 +103,12 @@ loop do
       first_number.to_i / second_number.to_i
   end
   prompt "#{operator_to_message operator} the two numbers" 
+ 
 
-  Kernel.puts "The result is #{result}"
-  prompt "Do you want to perform another calculations?"
+  prompt messages('result',LANGUAGE) + result.to_s
+  prompt messages('again',LANGUAGE)
   answer = Kernel.gets.chomp
   break unless answer.downcase.start_with? 'y'
 end
 
-prompt "Goodbye! #{name}"
+prompt messages('goodbye',LANGUAGE) + name
