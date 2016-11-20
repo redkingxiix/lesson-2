@@ -1,0 +1,12 @@
+en:
+  welcome: 'Welcome to the mortgage calculator! Please enter your name:'
+  loan_amount: 'Please enter the loan amount (ex: 1985.50):'
+  name_error: 'Did you enter something? Try again:'
+  Thanks: 'Thank you! See you again!'
+  rate: 'What is the rate (EX: 10% = 10):'
+  month: 'How many months:'
+  result: 'Amount required per month:'
+  again: 'Wanna try again?(y for yes)'
+  decimal_error: 'Be sure to enter a valid amount. Try again:'
+  number_error: 'Please enter a valid number:'
+
