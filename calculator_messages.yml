@@ -1,0 +1,16 @@
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure you enter a valid name. Try Again"
+  number: "Insert a number"
+  valid_number: "That doesn't look like a valid number"
+  result: "The result is "
+  again: "Do you want to perform another calculation?"
+  goodbye: "Goodbye! "
+ja:
+  welcome: "よこそう! お名前を記入してください:"
+  valid_name: "記入した名前は不使用です. もう一度記入してしてください。"
+  number: "数字を記入してください。"
+  valid_number: "数字だけ記入してください。"
+  result: "結果は "
+  again: "またやりますか"
+  goodbye: "じゃ、また！" 
