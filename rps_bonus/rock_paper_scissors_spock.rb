@@ -33,7 +33,7 @@ def spock_or_scissor(player_choice)
 end
 
 def shorthand_check(player_choice)
-  return false if player_choice.length() > 1
+  return false if player_choice.length() != 1
   VALID_CHOICES.each do |choice|
     return true if choice.chars[0] == player_choice || player_choice == 'S'
   end
@@ -41,7 +41,7 @@ def shorthand_check(player_choice)
 end
 
 def win?(player1, player2)
-  RULES[player1].include?(player2)
+  if RULES[player1].include?(player2) 
 end
 
 def display_results(player, computer)
@@ -83,8 +83,8 @@ loop do
 
   computer_choice = VALID_CHOICES.sample
 
-  prompt("You choose #{shorthand_convert(choice)}.")
-  prompt("The computer choose #{computer_choice}")
+  prompt("You chose #{shorthand_convert(choice)}.")
+  prompt("The computer chose #{computer_choice}.")
   display_results(choice, computer_choice)
 
   if @player_score > 0 || @computer_score > 0
