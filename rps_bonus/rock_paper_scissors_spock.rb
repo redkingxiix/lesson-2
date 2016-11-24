@@ -8,15 +8,11 @@ RULES = {
   'spock' => %w(rock scissors)
 }
 
-@player_score = 0
-@computer_score = 0
-
 def prompt(message)
   Kernel.puts("=>#{message}")
 end
 
 def shorthand_convert(player_choice)
-  binding.pry
   if player_choice.downcase() == 's'
     return spock_or_scissor(player_choice)
   end
@@ -43,37 +39,29 @@ def shorthand_check(player_choice)
 end
 
 def win?(player1, player2)
-  RULES[player1].include?(player2)
+   RULES[player1].include?(player2)
 end
 
 def display_results(player, computer)
-  p player.length()
   if player.length() == 1 
     player = shorthand_convert(player)
   end
   if win?(player, computer)
-    add_point('user')
     prompt('You win!')
   elsif win?(computer, player)
-    add_point('comp')
     prompt('Computer won!')
   else
     prompt('Tie game!')
   end
 end
 
-def add_point(winner)
-  if winner == 'user'
-    @player_score += 1
-  elsif winner == 'comp'
-    @computer_score += 1
-  end
-end
+player_score = 0
+computer_score = 0
 
 loop do
   choice = ''
   loop do
-    if @player_score == 0 || @computer_score == 0
+    if player_score == 0 || computer_score == 0
       prompt('This game is first to five!')
     end
 
@@ -93,13 +81,18 @@ loop do
 
   prompt("You chose #{choice}.")
   prompt("The computer chose #{computer_choice}.")
-  display_results(choice, computer_choice)
 
-  if @player_score > 0 || @computer_score > 0
-    prompt("Current score! You: #{@player_score} Computer: #{@computer_score}")
+  if win?(choice, computer_choice)
+    player_score += 1
+  elsif win?(computer_choice, choice)
+    computer_score += 1
   end
 
-  break if @player_score > 4 || @computer_score > 4
+  if player_score > 0 || computer_score > 0
+    prompt("Current score! You: #{player_score} Computer: #{computer_score}")
+  end
+
+  break if player_score > 4 || computer_score > 4
   answer = ''
   loop do
     prompt('Do you want to play again? Please enter yes or no.')
