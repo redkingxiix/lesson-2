@@ -77,7 +77,7 @@ loop do
 
   prompt("You chose #{choice}.")
   prompt("The computer chose #{computer_choice}.")
- 
+
   display_results(choice, computer_choice)
 
   if win?(choice, computer_choice)
