@@ -57,14 +57,11 @@ end
 
 player_score = 0
 computer_score = 0
+prompt('This game is first to five!')
 
 loop do
   choice = ''
   loop do
-    if player_score == 0 || computer_score == 0
-      prompt('This game is first to five!')
-    end
-
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     prompt('You can also use the first character of your choice!')
     prompt('Note: \'S\' for spock and \'s\' for scissors.')
