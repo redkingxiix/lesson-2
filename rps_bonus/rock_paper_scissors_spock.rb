@@ -41,7 +41,7 @@ def shorthand_check(player_choice)
 end
 
 def win?(player1, player2)
-  if RULES[player1].include?(player2) 
+  RULES[player1].include?(player2) 
 end
 
 def display_results(player, computer)
