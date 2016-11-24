@@ -1,3 +1,4 @@
+require 'pry'
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 RULES = {
   'rock' => %w(scissors lizard),
@@ -15,12 +16,13 @@ def prompt(message)
 end
 
 def shorthand_convert(player_choice)
+  binding.pry
   if player_choice.downcase() == 's'
     return spock_or_scissor(player_choice)
   end
 
   VALID_CHOICES.each do |option|
-    return option if option.chars[0] == player_choice
+    return option if option.chars[0] == player_choice[0]
   end
 end
 
@@ -45,7 +47,10 @@ def win?(player1, player2)
 end
 
 def display_results(player, computer)
-  player = shorthand_convert(player) if player.length() == 1
+  p player.length()
+  if player.length() == 1 
+    player = shorthand_convert(player)
+  end
   if win?(player, computer)
     add_point('user')
     prompt('You win!')
@@ -77,13 +82,16 @@ loop do
     prompt('Note: \'S\' for spock and \'s\' for scissors.')
 
     choice = Kernel.gets().chomp()
-    break if VALID_CHOICES.include?(choice) || shorthand_check(choice)
+    break if VALID_CHOICES.include?(choice.downcase) || shorthand_check(choice)
     prompt("That's not a valid choice.")
   end
 
   computer_choice = VALID_CHOICES.sample
+  if choice.length == 1
+    choice = shorthand_convert(choice)
+  end
 
-  prompt("You chose #{shorthand_convert(choice)}.")
+  prompt("You chose #{choice}.")
   prompt("The computer chose #{computer_choice}.")
   display_results(choice, computer_choice)
 
@@ -92,8 +100,11 @@ loop do
   end
 
   break if @player_score > 4 || @computer_score > 4
-
-  prompt('Do you want to play again?')
-  answer = Kernel.gets().chomp()
-  break unless answer.downcase().start_with?('y')
+  answer = ''
+  loop do
+    prompt('Do you want to play again? Please enter yes or no.')
+    answer = Kernel.gets().chomp()
+    break if answer.downcase() == ('no') || ('yes')
+  end
+  break if answer.downcase() == ('no')
 end
