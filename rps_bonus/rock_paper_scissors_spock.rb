@@ -17,7 +17,7 @@ def shorthand_convert(player_choice)
   end
 
   VALID_CHOICES.each do |option|
-    return option if option.chars[0] == player_choice[0]
+    return option if option[0] == player_choice[0]
   end
 end
 
@@ -32,13 +32,13 @@ end
 def shorthand_check(player_choice)
   return false if player_choice.length() != 1
   VALID_CHOICES.each do |choice|
-    return true if choice.chars[0] == player_choice || player_choice == 'S'
+    return true if choice[0] == player_choice || player_choice == 'S'
   end
   false
 end
 
 def win?(player1, player2)
-  RULES[player1].include?(player2)
+  RULES[player1.downcase()].include?(player2.downcase())
 end
 
 def display_results(player, computer)
@@ -77,6 +77,8 @@ loop do
 
   prompt("You chose #{choice}.")
   prompt("The computer chose #{computer_choice}.")
+ 
+  display_results(choice, computer_choice)
 
   if win?(choice, computer_choice)
     player_score += 1
