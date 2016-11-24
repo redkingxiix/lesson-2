@@ -1,4 +1,3 @@
-require 'pry'
 VALID_CHOICES = %w(rock paper scissors lizard spock)
 RULES = {
   'rock' => %w(scissors lizard),
@@ -39,11 +38,11 @@ def shorthand_check(player_choice)
 end
 
 def win?(player1, player2)
-   RULES[player1].include?(player2)
+  RULES[player1].include?(player2)
 end
 
 def display_results(player, computer)
-  if player.length() == 1 
+  if player.length() == 1
     player = shorthand_convert(player)
   end
   if win?(player, computer)
@@ -94,7 +93,8 @@ loop do
   loop do
     prompt('Do you want to play again? Please enter yes or no.')
     answer = Kernel.gets().chomp()
-    break if answer.downcase() == ('no') || ('yes')
+    # string literal warning below
+    break if answer.downcase() == 'no' || answer.downcase() == 'yes'
   end
-  break if answer.downcase() == ('no')
+  break if answer.downcase() == 'no'
 end
